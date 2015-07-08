@@ -1,0 +1,42 @@
+<?php
+/**
+ * Tests the functionality of the RDF helpers.
+ */
+
+class SdcateRdfTestCase extends DrupalWebTestCase {
+  /**
+   * Provide information about the test.
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Simple DCAT export test',
+      'description' => 'Test the RDF helpers',
+      'group' => 'Open Data',
+    );
+  }
+
+  /**
+   * Set up test class.
+   */
+  public function setUp() {
+    parent::setUp(array('sdcate'));
+  }
+
+  /**
+   * Test creation of RDF literals.
+   */
+  public function testSdcateRdfLiteral() {
+    $subj = 'http://a.be/subj';
+    $pred = 'http://a.be/pred';
+    $lit = 'Double-quote (") ';
+    $lit .= 'CR (' . "\r" . ') ';
+    $lit .= 'LF (' . "\n" . ')';
+
+    $res = sdcate_literal($subj, $pred, $lit);
+
+    $rdf = '<http://a.be/subj> <http://a.be/pred> ';
+    $rdf .= '"Double-quote (\") CR (\r) LF (\n)" .' . "\n";
+    $this->assertEqual($res, $rdf);
+  }
+
+}

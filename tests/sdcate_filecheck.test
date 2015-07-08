@@ -1,0 +1,47 @@
+<?php
+/**
+ * Tests the functionality of the file extension check.
+ */
+
+class SdcateFilecheckTestCase extends DrupalWebTestCase {
+  /**
+   * Provide information about the test.
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Simple DCAT export test',
+      'description' => 'Test the file extension check',
+      'group' => 'Open Data',
+    );
+  }
+
+  /**
+   * Set up test class.
+   */
+  public function setUp() {
+    parent::setUp(array('sdcate'));
+  }
+
+  /**
+   * Test file extension check. 
+   */
+  public function testSdcateFilecheck() {
+    variable_set_value('sdcate_files', 'odt txt');
+
+    $file1 = array();
+    $file1['display'] = 1;
+    $file1['uri'] = 'public://test.TXT';
+    $this->assertTrue(sdcate_file_check($file1));
+
+    $file2 = array();
+    $file2['display'] = 0;
+    $file2['uri'] = 'public://test.TXT';
+    $this->assertFalse(sdcate_file_check($file2));
+
+    $file3 = array();
+    $file3['display'] = 1;
+    $file3['uri'] = 'public://test.pdf';
+    $this->assertFalse(sdcate_file_check($file3));
+  }
+
+}
