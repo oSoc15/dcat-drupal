@@ -1,0 +1,15 @@
+name = Simple DCAT export
+package = Open Data
+description = Export the metadata of downloadable files to a machine-friendly DCAT file.
+core = 7.x
+dependencies[] = variable
+files[] = tests/sdcate_filecheck.test
+files[] = tests/sdcate_rdf.test
+configure = admin/config/search/sdcate
+
+; Information added by Drupal.org packaging script on 2015-05-07
+version = "7.x-1.0-unstable2"
+core = "7.x"
+project = "sdcate"
+datestamp = "1430980383"
+

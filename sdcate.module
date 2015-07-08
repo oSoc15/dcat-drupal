@@ -1,0 +1,69 @@
+<?php
+/**
+ * @file
+ * Simple DCAT export module.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function sdcate_permission() {
+  return array(
+    'administer sdcate' => array(
+      'title' => t('Administer DCAT'),
+      'description' => t('Administer export of metadata to machine-readable DCAT file'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_help().
+ */
+function sdcate_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#sdcate':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Simple DCAT export module generates a file containing metadata (title, link, description ...) of downloadable, machine-readable files. This makes it easier for Drupal site owners to provide input for open data initiatives / portals.') . '</p>';
+      $output .= '<p>' . t('For more information about the metadata format, see W3C\'s Data Catalog Vocabulary <a href="@spec">specification</a> or the European <a href="@dcatap">DCAT-AP project</a>.', array('@spec' => 'http://www.w3.org/TR/vocab-dcat/', '@dcatap' => 'https://joinup.ec.europa.eu/asset/dcat_application_profile/description')) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Configuring settings') . '</dt>';
+      $output .= '<dd>' . t('Users with the <em>Admin DCAT</em> permission can configure the module via the Variable\'s <a href="@cfg">Simple DCAT menu</a>.', array('@cfg' => url('admin/config/search/sdcate'))) . '</dd>';
+      $output .= '</dl>';
+
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function sdcate_menu() {
+  $items = array();
+
+  $items['admin/config/search/sdcate'] = array(
+    'title' => 'Simple DCAT export',
+    'description' => 'Configure exporting metadata of downloadable files to machine-readable DCAT file.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('variable_module_form', 'sdcate'),
+    'access arguments' => array('administer dcat'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function sdcate_cron() {
+  module_load_include('inc', 'sdcate', 'sdcate');
+
+  $data = sdcate_catalog();
+  $data .= sdcate_datasets();
+
+  $fname = 'public://' . variable_get_value('sdcate_outfile');
+  file_save_data($data, $fname, FILE_EXISTS_REPLACE);
+  watchdog('sdcate', 'Generated DCAT file %f', array('%f' => $fname));
+}
