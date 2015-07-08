@@ -171,15 +171,13 @@ function sdcate_dataset($cat, $node) {
 
   $data = sdcate_triple($cat, SDCATE_DCAT_DSET, $dset);
   $data .= sdcate_triple($dset, SDCATE_RDF_TYPE, SDCATE_DCAT_ADSET);
-  $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title);
-  if(isset($node->language))
+  if(!isset($node->language))
   {
-    $data .= sdcate_literal($dset, SDCATE_DT_LANG, $language->language); 
+    $language->language = $node->language; 
   }
-  else
-  {
-    $data .= sdcate_literal($dset, SDCATE_DT_LANG, $node->language); 
-  }
+  
+  $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title, $language->language);
+  
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
   $data .= sdcate_date($dset, SDCATE_DT_MODIF, $node->changed);
 

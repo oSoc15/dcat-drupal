@@ -59,7 +59,7 @@ function sdcate_menu() {
  */
 function sdcate_cron() {
   module_load_include('inc', 'sdcate', 'sdcate');
-
+  
   $data = sdcate_catalog();
   $data .= sdcate_datasets();
 

@@ -38,6 +38,7 @@ define('SDCATE_FOAF', 'http://xmlns.com/foaf/0.1/');
 define('SDCATE_FOAF_DOC', SDCATE_FOAF . 'Document');
 define('SDCATE_FOAF_HOME', SDCATE_FOAF . 'homepage');
 
+
 /**
  * Creates RDF triple.
  *
