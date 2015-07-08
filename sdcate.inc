@@ -177,7 +177,7 @@ function sdcate_dataset($cat, $node) {
   }
   
   $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title, $language->language);
-  
+  $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, "keyword1, keyword2, keyword3");
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
   $data .= sdcate_date($dset, SDCATE_DT_MODIF, $node->changed);
 
