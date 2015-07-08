@@ -28,6 +28,6 @@ Configure user permissions in Admin >> People >> Permissions:
 - Administer DCAT
 
 Customize the settings in Admin >> Configuration >> Search and Metadata
->> Simple DCAT export:
+- Simple DCAT export:
  
 
