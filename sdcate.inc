@@ -171,11 +171,11 @@ function sdcate_dataset($cat, $node) {
 
   $data = sdcate_triple($cat, SDCATE_DCAT_DSET, $dset);
   $data .= sdcate_triple($dset, SDCATE_RDF_TYPE, SDCATE_DCAT_ADSET);
-  if(!isset($node->language))
+  if($node->language != "und")
   {
     $language->language = $node->language; 
   }
-  
+
   $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title, $language->language);
   $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, "keyword1, keyword2, keyword3");
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
