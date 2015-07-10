@@ -168,7 +168,7 @@ function sdcate_distributions($dset, $node) {
 function sdcate_dataset($cat, $node) {
   global $language;
   $dset = sdcate_uri_dataset($node->nid);
-
+  $keywords = '';
   $data = sdcate_triple($cat, SDCATE_DCAT_DSET, $dset);
   $data .= sdcate_triple($dset, SDCATE_RDF_TYPE, SDCATE_DCAT_ADSET);
   if($node->language != "und")
@@ -177,10 +177,18 @@ function sdcate_dataset($cat, $node) {
   }
 
   $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title, $language->language);
-  $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, "keyword1, keyword2, keyword3");
+  $tags = field_get_items('node',$node,'field_file_tags');
+  $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[0]);
+  for( $i = 0; $i < sizeof( $tags ); $i++ ) {
+    $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[$i]);
+    $keywords .= $tag_name['#title'];
+    if( $i < sizeof($tags) - 1 ){
+      $keywords .= ', ';
+    }
+  }
+  $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $keywords);
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
   $data .= sdcate_date($dset, SDCATE_DT_MODIF, $node->changed);
-
   $data .= sdcate_distributions($dset, $node);
 
   return $data;
