@@ -178,7 +178,6 @@ function sdcate_dataset($cat, $node) {
 
   $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title, $language->language);
   $tags = field_get_items('node',$node,'field_file_tags');
-  $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[0]);
   for( $i = 0; $i < sizeof( $tags ); $i++ ) {
     $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[$i]);
     $keywords .= $tag_name['#title'];
