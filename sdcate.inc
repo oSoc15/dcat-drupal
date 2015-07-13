@@ -181,14 +181,11 @@ function sdcate_dataset($cat, $node) {
   for( $i = 0; $i < sizeof( $tags ); $i++ ) {
     $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[$i]);
     $keywords .= $tag_name['#title'];
-    if( $i < sizeof($tags) - 1 ){
-      $keywords .= ', ';
-    }
+    $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $tag_name['#title'], $language->language);
   }
-  $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $keywords, $language->language);
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
   $data .= sdcate_date($dset, SDCATE_DT_MODIF, $node->changed);
-  $data .= sdcate_distributions($dset, $node);
+  $data .= sdcate_distributions($dset, $node);  
 
   return $data;
 }
