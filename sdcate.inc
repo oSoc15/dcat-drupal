@@ -185,7 +185,7 @@ function sdcate_dataset($cat, $node) {
       $keywords .= ', ';
     }
   }
-  $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $keywords);
+  $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $keywords, $language->language);
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
   $data .= sdcate_date($dset, SDCATE_DT_MODIF, $node->changed);
   $data .= sdcate_distributions($dset, $node);
