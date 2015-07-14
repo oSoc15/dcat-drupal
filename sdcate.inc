@@ -171,17 +171,24 @@ function sdcate_dataset($cat, $node) {
   $keywords = '';
   $data = sdcate_triple($cat, SDCATE_DCAT_DSET, $dset);
   $data .= sdcate_triple($dset, SDCATE_RDF_TYPE, SDCATE_DCAT_ADSET);
-  if($node->language != "und")
-  {
-    $language->language = $node->language; 
+
+  if($node->language == "und") { 
+    $node->language = $language->language;
   }
 
-  $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title, $language->language);
+
+  $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title, $node->language);
+  /**
+  * This following code is the keywords integration
+  * 'field_file_tags' is the name of the field for the tags, he has to be change 
+  * if the name change in the website.
+  *
+  */
   $tags = field_get_items('node',$node,'field_file_tags');
   for( $i = 0; $i < sizeof( $tags ); $i++ ) {
     $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[$i]);
     $keywords .= $tag_name['#title'];
-    $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $tag_name['#title'], $language->language);
+    $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $tag_name['#title'], $node->language);
   }
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
   $data .= sdcate_date($dset, SDCATE_DT_MODIF, $node->changed);
