@@ -175,21 +175,22 @@ function sdcate_dataset($cat, $node) {
   if($node->language == "und") { 
     $node->language = $language->language;
   }
-
-
   $data .= sdcate_literal($dset, SDCATE_DT_TITLE, $node->title, $node->language);
   /**
   * This following code is the keywords integration
   * 'field_file_tags' is the name of the field for the tags, he has to be change 
   * if the name change in the website.
-  *
   */
   $tags = field_get_items('node',$node,'field_file_tags');
-  for( $i = 0; $i < sizeof( $tags ); $i++ ) {
-    $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[$i]);
-    $keywords .= $tag_name['#title'];
-    $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $tag_name['#title'], $node->language);
+  if(!empty($tags)){
+    for( $i = 0; $i < sizeof( $tags ); $i++ ) {
+      $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[$i]);
+      $keywords .= $tag_name['#title'];
+      $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $tag_name['#title'], $node->language);
+    }
   }
+  
+
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
   $data .= sdcate_date($dset, SDCATE_DT_MODIF, $node->changed);
   $data .= sdcate_distributions($dset, $node);  
