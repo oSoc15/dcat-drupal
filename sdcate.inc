@@ -188,14 +188,28 @@ function sdcate_dataset($cat, $node) {
   * if the name change in the website.
   */
   $tags = field_get_items('node',$node,'field_file_tags');
-  if(!empty($tags)){
+  if(!empty($tags)) {
     for( $i = 0; $i < sizeof( $tags ); $i++ ) {
       $tag_name = field_view_value('node', $node, 'field_file_tags', $tags[$i]);
       $keywords .= $tag_name['#title'];
       $data .= sdcate_literal($dset, SDCATE_DCAT_TAG, $tag_name['#title'], $node->language);
+      
     }
   }
-  
+  /**
+  * This following code is the description integration
+  * 'field_file_attachments' is the name of the field for the attachments, he has to be change 
+  * if the name change in the website.
+  */
+  $attachments = field_get_items('node',$node,'field_file_attachments');
+  if(!empty($attachments)) {
+    for( $i = 0; $i < sizeof( $attachments ); $i++ ) {
+      if (isset($attachments[$i]['description']) && !empty($attachments[$i]['description'])) {
+        drupal_set_message(print_r($attachments[$i]['description'], TRUE));
+        $data .= sdcate_literal($dset, SDCATE_DT_DESC, $attachments[$i]['description']);
+      }
+    }
+  }
 
   $data .= sdcate_date($dset, SDCATE_DT_CREAT, $node->created);
   $data .= sdcate_date($dset, SDCATE_DT_MODIF, $node->changed);
