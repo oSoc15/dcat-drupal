@@ -33,6 +33,8 @@ define('SDCATE_DT_GEO', SDCATE_DT . 'spatial');
 define('SDCATE_DT_LANG', SDCATE_DT . 'language');
 define('SDCATE_DT_MODIF', SDCATE_DT . 'modified');
 define('SDCATE_DT_TITLE', SDCATE_DT . 'title');
+define('SDCATE_DT_FORMAT', SDCATE_DT. 'format');
+define('SDCATE_DT_PUBLISHER', SDCATE_DT. 'publisher');
 
 define('SDCATE_FOAF', 'http://xmlns.com/foaf/0.1/');
 define('SDCATE_FOAF_DOC', SDCATE_FOAF . 'Document');
