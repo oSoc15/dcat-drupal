@@ -67,6 +67,12 @@ function sdcate_catalog() {
   if ($theme = variable_get_value('sdcate_theme')) {
     $triples .= sdcate_triple($cat, SDCATE_DCAT_THEME, $theme);
   }
+  $title = variable_get('site_name');
+  $triples .= sdcate_literal($cat, SDCATE_DT_TITLE, $title);
+  $descr = variable_get('site_slogan');
+  if(isset($descr)) {
+    $triples .= sdcate_literal($cat, SDCATE_DT_DESC, $descr);
+  }
   return $triples;
 }
 
