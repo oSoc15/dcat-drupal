@@ -60,7 +60,7 @@ function sdcate_catalog() {
   $cat = sdcate_uri_catalog();
   $triples = sdcate_triple($cat, SDCATE_RDF_TYPE, SDCATE_DCAT_ACAT);
   $triples .= sdcate_triple($cat, SDCATE_FOAF_HOME, $base_url);
-
+  $triples .= sdcate_triple($cat, SDCATE_DT_PUBLISHER, $base_url );
   if ($geo = variable_get_value('sdcate_geo')) {
     $triples .= sdcate_triple($cat, SDCATE_DT_GEO, $geo);
   }
