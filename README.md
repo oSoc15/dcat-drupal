@@ -14,11 +14,15 @@ For more information about the metadata format, see:
 
 
 #REQUIREMENTS
-This module requires the Variable module.
+To use this module, you will have first to install the Variable module.
 Cron must be enabled.
+This module was developed for the Drupal 7.
 
 #INSTALLATION
-Install as you would normally install a contributed Drupal module.
+How do we install a module in Drupal ?
+First, you have to download the module and extract it in your folder
+sites/all/modules
+Secondly, you have to go to the Module page at Administrater>Modules and enable all the modules needed.
 See https://drupal.org/documentation/install/modules-themes/modules-7
 for further information.
 
