@@ -22,7 +22,7 @@ define('SDCATE_DCAT_CONTACT', SDCATE_DCAT . 'contactPoint');
 define('SDCATE_DCAT_PAGE', SDCATE_DCAT . 'landingPage');
 define('SDCATE_DCAT_TAG', SDCATE_DCAT . 'keyword');
 define('SDCATE_DCAT_THEME', SDCATE_DCAT . 'theme');
-define('SDCATE_DCAT_URL', SDCATE_DCAT . 'downloadURL');
+define('SDCATE_DCAT_URL', SDCATE_DCAT . 'accessURL');
 define('SDCATE_DCAT_SIZE', SDCATE_DCAT . 'byteSize');
 define('SDCATE_DCAT_TYPE', SDCATE_DCAT . 'mediaType');
 
@@ -39,6 +39,8 @@ define('SDCATE_DT_PUBLISHER', SDCATE_DT. 'publisher');
 define('SDCATE_FOAF', 'http://xmlns.com/foaf/0.1/');
 define('SDCATE_FOAF_DOC', SDCATE_FOAF . 'Document');
 define('SDCATE_FOAF_HOME', SDCATE_FOAF . 'homepage');
+define('SDCATE_FOAF_NAME', SDCATE_FOAF . 'name');
+
 
 
 /**

@@ -101,6 +101,7 @@ function sdcate_distribution($dset, $file) {
   $data .= sdcate_decimal($dist, SDCATE_DCAT_SIZE, $file['filesize']);
   $data .= sdcate_literal($dist, SDCATE_DCAT_TYPE, $file['filemime']);
   $data .= sdcate_triple($dist, SDCATE_DCAT_URL, $url);
+  $data .= sdcate_literal($url, SDCATE_DCAT_URL, $url);
 
   return $data;
 }
@@ -205,7 +206,6 @@ function sdcate_dataset($cat, $node) {
   if(!empty($attachments)) {
     for( $i = 0; $i < sizeof( $attachments ); $i++ ) {
       if (isset($attachments[$i]['description']) && !empty($attachments[$i]['description'])) {
-        drupal_set_message(print_r($attachments[$i]['description'], TRUE));
         $data .= sdcate_literal($dset, SDCATE_DT_DESC, $attachments[$i]['description']);
       }
     }
