@@ -56,11 +56,18 @@ function sdcate_uri_distribution($fid) {
  */
 function sdcate_catalog() {
   global $base_url;
+  global $language;
 
   $cat = sdcate_uri_catalog();
   $triples = sdcate_triple($cat, SDCATE_RDF_TYPE, SDCATE_DCAT_ACAT);
   $triples .= sdcate_triple($cat, SDCATE_FOAF_HOME, $base_url);
   $triples .= sdcate_triple($cat, SDCATE_DT_PUBLISHER, $base_url );
+  /**
+  * Here, you need the fetch the publisher name from the Drupal website
+  * I didn't find a solution yet for this one.
+  **/
+  $triples .= sdcate_literal($base_url,SDCATE_FOAF_NAME, "Publisher" );
+  $triples .= sdcate_literal($base_url,SDCATE_DT_LANG, $language->language);
   if ($geo = variable_get_value('sdcate_geo')) {
     $triples .= sdcate_triple($cat, SDCATE_DT_GEO, $geo);
   }
@@ -90,7 +97,6 @@ function sdcate_catalog() {
 function sdcate_distribution($dset, $file) {
   $dist = sdcate_uri_distribution($file['fid']);
   $url = file_create_url($file['uri']);
-
   $data = sdcate_triple($dset, SDCATE_DCAT_DIST, $dist);
   $data .= sdcate_triple($dist, SDCATE_RDF_TYPE, SDCATE_DCAT_ADIST);
   $data .= sdcate_literal($dist, SDCATE_DT_TITLE, $file['filename']);
@@ -178,7 +184,6 @@ function sdcate_dataset($cat, $node) {
   $keywords = '';
   $data = sdcate_triple($cat, SDCATE_DCAT_DSET, $dset);
   $data .= sdcate_triple($dset, SDCATE_RDF_TYPE, SDCATE_DCAT_ADSET);
-
   if($node->language == "und") { 
     $node->language = $language->language;
   }
